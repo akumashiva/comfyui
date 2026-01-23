@@ -94,6 +94,17 @@ flux = (  # Download image layers to run FLUX_Q8.gguf model
     .run_commands( # install node ComfyUI-Impact-Pack
         "comfy node install https://github.com/ltdrdata/ComfyUI-Impact-Pack"
     )
+
+    .run_commands( #download models for SUPIR
+        "comfy --skip-prompt model download --url https://huggingface.co/SG161222/RealVisXL_V5.0/resolve/main/RealVisXL_V5.0_fp16.safetensors --relative-path models/checkpoints",
+        "comfy --skip-prompt model download --url https://huggingface.co/RunDiffusion/Juggernaut-XL-v9/resolve/main/Juggernaut-XL_v9_RunDiffusionPhoto_v2.safetensors --relative-path models/checkpoints",
+        "comfy --skip-prompt model download --url https://huggingface.co/Kijai/SUPIR_pruned/resolve/main/SUPIR-v0F_fp16.safetensors --relative-path models/checkpoints",
+        "comfy --skip-prompt model download --url https://huggingface.co/Phips/4xNomos8kDAT/resolve/main/4xNomos8kDAT.safetensors --relative-path models/upscale_models",
+    )
+
+    .run_commands( # install ComfyUI-SUPIR
+        "comfy node install https://github.com/kijai/ComfyUI-SUPIR"
+    )
 )
 
 app = modal.App(name="flux-comfyui", image=flux)
@@ -101,7 +112,7 @@ app = modal.App(name="flux-comfyui", image=flux)
     max_containers=1,
     scaledown_window=30,
     timeout=3200,
-    gpu="a10g", # here you can change the gpu, i recommend either a10g or T4
+    gpu="T4", # here you can change the gpu, i recommend either a10g or T4
     volumes={"/root/comfy/ComfyUI/user/default": vol}, # Mount the volume to the user data folder
 )
 @modal.concurrent(max_inputs=10)
