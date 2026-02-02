@@ -1,8 +1,8 @@
 {
   "id": "29b0ec5e-3f65-42eb-b9c9-93a8990c895f",
   "revision": 0,
-  "last_node_id": 35,
-  "last_link_id": 76,
+  "last_node_id": 36,
+  "last_link_id": 80,
   "nodes": [
     {
       "id": 11,
@@ -162,53 +162,6 @@
       ]
     },
     {
-      "id": 10,
-      "type": "SUPIR_decode",
-      "pos": [
-        1734.35130570931,
-        -185.94270536103326
-      ],
-      "size": [
-        258.0101318359375,
-        102
-      ],
-      "flags": {},
-      "order": 10,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "SUPIR_VAE",
-          "type": "SUPIRVAE",
-          "link": 54
-        },
-        {
-          "name": "latents",
-          "type": "LATENT",
-          "link": 12
-        }
-      ],
-      "outputs": [
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "slot_index": 0,
-          "links": [
-            57,
-            76
-          ]
-        }
-      ],
-      "properties": {
-        "cnr_id": "comfyui-supir",
-        "ver": "53fc4f82f139e0875e1f4f3716fbeafa073e4242",
-        "Node name for S&R": "SUPIR_decode"
-      },
-      "widgets_values": [
-        true,
-        512
-      ]
-    },
-    {
       "id": 12,
       "type": "Reroute",
       "pos": [
@@ -282,136 +235,6 @@
       }
     },
     {
-      "id": 26,
-      "type": "ResizeImageMaskNode",
-      "pos": [
-        49.69253371908788,
-        223.92433802947264
-      ],
-      "size": [
-        270,
-        106
-      ],
-      "flags": {},
-      "order": 3,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "input",
-          "type": "IMAGE,MASK",
-          "link": 73
-        }
-      ],
-      "outputs": [
-        {
-          "name": "resized",
-          "type": "IMAGE",
-          "links": [
-            65,
-            68
-          ]
-        }
-      ],
-      "properties": {
-        "cnr_id": "comfy-core",
-        "ver": "0.10.0",
-        "Node name for S&R": "ResizeImageMaskNode"
-      },
-      "widgets_values": [
-        "scale total pixels",
-        2,
-        "lanczos"
-      ]
-    },
-    {
-      "id": 20,
-      "type": "Image Comparer (rgthree)",
-      "pos": [
-        843.2827229104897,
-        542.3898576086634
-      ],
-      "size": [
-        647.1893310546875,
-        642.7651977539062
-      ],
-      "flags": {},
-      "order": 11,
-      "mode": 0,
-      "inputs": [
-        {
-          "dir": 3,
-          "name": "image_a",
-          "type": "IMAGE",
-          "link": 68
-        },
-        {
-          "dir": 3,
-          "name": "image_b",
-          "type": "IMAGE",
-          "link": 57
-        }
-      ],
-      "outputs": [],
-      "properties": {
-        "cnr_id": "rgthree-comfy",
-        "ver": "32142fe476878a354dda6e2d4b5ea98960de3ced",
-        "comparer_mode": "Slide"
-      },
-      "widgets_values": [
-        [
-          {
-            "name": "A",
-            "selected": true,
-            "url": "/api/view?filename=rgthree.compare._temp_xvoco_00023_.png&type=temp&subfolder=&rand=0.7277970799449817"
-          },
-          {
-            "name": "B",
-            "selected": true,
-            "url": "/api/view?filename=rgthree.compare._temp_xvoco_00024_.png&type=temp&subfolder=&rand=0.0313667784074555"
-          }
-        ]
-      ]
-    },
-    {
-      "id": 32,
-      "type": "LoadImage",
-      "pos": [
-        -377.7444292349934,
-        366.49356330944784
-      ],
-      "size": [
-        282.798828125,
-        314.00000000000006
-      ],
-      "flags": {},
-      "order": 1,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            73
-          ]
-        },
-        {
-          "name": "MASK",
-          "type": "MASK",
-          "links": null
-        }
-      ],
-      "properties": {
-        "cnr_id": "comfy-core",
-        "ver": "0.10.0",
-        "Node name for S&R": "LoadImage"
-      },
-      "widgets_values": [
-        "trang-tri-dam-cuoi-phong-cach-ngay-xua-(8).jpg",
-        "image"
-      ]
-    },
-    {
       "id": 5,
       "type": "SUPIR_first_stage",
       "pos": [
@@ -474,34 +297,6 @@
         512,
         "auto"
       ]
-    },
-    {
-      "id": 35,
-      "type": "PreviewImage",
-      "pos": [
-        1885.3898576086633,
-        250.35711566057867
-      ],
-      "size": [
-        140,
-        26
-      ],
-      "flags": {},
-      "order": 12,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 76
-        }
-      ],
-      "outputs": [],
-      "properties": {
-        "cnr_id": "comfy-core",
-        "ver": "0.10.0",
-        "Node name for S&R": "PreviewImage"
-      }
     },
     {
       "id": 9,
@@ -614,7 +409,7 @@
         "Node name for S&R": "SUPIR_sample"
       },
       "widgets_values": [
-        184432974619794,
+        928904308749141,
         "randomize",
         20,
         4,
@@ -629,6 +424,259 @@
         "RestoreDPMPP2MSampler",
         1024,
         512
+      ]
+    },
+    {
+      "id": 35,
+      "type": "PreviewImage",
+      "pos": [
+        2205.013682938614,
+        95.42082067012805
+      ],
+      "size": [
+        140,
+        26
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 77
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.10.0",
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 10,
+      "type": "SUPIR_decode",
+      "pos": [
+        1759.271129379103,
+        -322.460000247724
+      ],
+      "size": [
+        258.0101318359375,
+        102
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "SUPIR_VAE",
+          "type": "SUPIRVAE",
+          "link": 54
+        },
+        {
+          "name": "latents",
+          "type": "LATENT",
+          "link": 12
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "slot_index": 0,
+          "links": [
+            57,
+            78
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-supir",
+        "ver": "53fc4f82f139e0875e1f4f3716fbeafa073e4242",
+        "Node name for S&R": "SUPIR_decode"
+      },
+      "widgets_values": [
+        true,
+        512
+      ]
+    },
+    {
+      "id": 20,
+      "type": "Image Comparer (rgthree)",
+      "pos": [
+        843.2827229104897,
+        542.3898576086634
+      ],
+      "size": [
+        647.1893310546875,
+        642.7651977539062
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "dir": 3,
+          "name": "image_a",
+          "type": "IMAGE",
+          "link": 80
+        },
+        {
+          "dir": 3,
+          "name": "image_b",
+          "type": "IMAGE",
+          "link": 57
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "rgthree-comfy",
+        "ver": "32142fe476878a354dda6e2d4b5ea98960de3ced",
+        "comparer_mode": "Slide"
+      },
+      "widgets_values": [
+        [
+          {
+            "name": "A",
+            "selected": true,
+            "url": "/api/view?filename=rgthree.compare._temp_xvoco_00023_.png&type=temp&subfolder=&rand=0.7277970799449817"
+          },
+          {
+            "name": "B",
+            "selected": true,
+            "url": "/api/view?filename=rgthree.compare._temp_xvoco_00024_.png&type=temp&subfolder=&rand=0.0313667784074555"
+          }
+        ]
+      ]
+    },
+    {
+      "id": 26,
+      "type": "ResizeImageMaskNode",
+      "pos": [
+        49.69253371908788,
+        223.92433802947264
+      ],
+      "size": [
+        270,
+        106
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "input",
+          "type": "IMAGE,MASK",
+          "link": 73
+        }
+      ],
+      "outputs": [
+        {
+          "name": "resized",
+          "type": "IMAGE",
+          "links": [
+            65,
+            79,
+            80
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.10.0",
+        "Node name for S&R": "ResizeImageMaskNode"
+      },
+      "widgets_values": [
+        "scale total pixels",
+        2,
+        "lanczos"
+      ]
+    },
+    {
+      "id": 36,
+      "type": "ColorMatch",
+      "pos": [
+        1847.0748552367622,
+        -43.80983431354532
+      ],
+      "size": [
+        270,
+        126
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image_ref",
+          "type": "IMAGE",
+          "link": 79
+        },
+        {
+          "name": "image_target",
+          "type": "IMAGE",
+          "link": 78
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            77
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-kjnodes",
+        "ver": "1.2.7",
+        "Node name for S&R": "ColorMatch"
+      },
+      "widgets_values": [
+        "mkl",
+        1,
+        true
+      ]
+    },
+    {
+      "id": 32,
+      "type": "LoadImage",
+      "pos": [
+        -377.7444292349934,
+        366.49356330944784
+      ],
+      "size": [
+        282.798828125,
+        314.00000000000006
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            73
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.10.0",
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "bunny.jpg",
+        "image"
       ]
     }
   ],
@@ -778,14 +826,6 @@
       "IMAGE"
     ],
     [
-      68,
-      26,
-      0,
-      20,
-      0,
-      "IMAGE"
-    ],
-    [
       73,
       32,
       0,
@@ -794,10 +834,34 @@
       "IMAGE"
     ],
     [
-      76,
-      10,
+      77,
+      36,
       0,
       35,
+      0,
+      "IMAGE"
+    ],
+    [
+      78,
+      10,
+      0,
+      36,
+      1,
+      "IMAGE"
+    ],
+    [
+      79,
+      26,
+      0,
+      36,
+      0,
+      "IMAGE"
+    ],
+    [
+      80,
+      26,
+      0,
+      20,
       0,
       "IMAGE"
     ]
@@ -808,8 +872,8 @@
     "ds": {
       "scale": 0.9229599817706606,
       "offset": [
-        500.805922695452,
-        112.8147757097427
+        -624.9200248225764,
+        532.1178957188648
       ]
     },
     "frontendVersion": "1.37.11",

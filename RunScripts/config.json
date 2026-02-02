@@ -1,0 +1,6 @@
+{
+  "collections": "/usr/comfyuser/collections",
+  "download_logs": "/usr/comfyuser/download-logs",
+  "outputs": "[comfyui]/outputs",
+  "sources": "/usr/comfyuser/sources"
+}
