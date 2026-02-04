@@ -6,6 +6,8 @@ from typing import Dict
 
 import modal
 vol = modal.Volume.from_name("comfyui-workflows", create_if_missing=True)
+output = modal.Volume.from_name("comfyui-outputs", create_if_missing=True)
+user = modal.Volume.from_name("comfyui-user", create_if_missing=True)
 
 flux = (  # Download image layers to run FLUX_Q8.gguf model
     modal.Image.debian_slim(  #this starts with a basic and supported python version
@@ -79,10 +81,6 @@ flux = (  # Download image layers to run FLUX_Q8.gguf model
         "comfy --skip-prompt model download --url https://huggingface.co/lkeab/hq-sam/resolve/main/sam_hq_vit_h.pth --relative-path models/sams",
     )
     
-    .run_commands( # install node ReActor Faceswap
-        "comfy node registry-install comfyui-reactor-node"
-    )
-    
     .run_commands( # install node ComfyUI Browser
         "comfy node install https://github.com/talesofai/comfyui-browser"
     )
@@ -105,6 +103,74 @@ flux = (  # Download image layers to run FLUX_Q8.gguf model
     .run_commands( # install ComfyUI-SUPIR
         "comfy node install https://github.com/kijai/ComfyUI-SUPIR"
     )
+    
+    .run_commands( # install ComfyUI-KJNodes
+        "comfy node install https://github.com/kijai/ComfyUI-KJNodes"
+    )
+
+    .run_commands( # install node ReActor Faceswap
+        "comfy node registry-install comfyui-reactor-node",
+        "comfy --skip-prompt model download --url https://huggingface.co/datasets/Gourieff/ReActor/resolve/main/models/facerestore_models/GFPGANv1.3.pth --filename GFPGANv1.3.pth --relative-path models/facerestore_models",
+        "comfy --skip-prompt model download --url https://huggingface.co/datasets/Gourieff/ReActor/resolve/main/models/facerestore_models/GFPGANv1.4.pth --filename GFPGANv1.4.pth --relative-path models/facerestore_models",
+        "comfy --skip-prompt model download --url https://huggingface.co/datasets/Gourieff/ReActor/resolve/main/models/facerestore_models/codeformer-v0.1.0.pth --filename codeformer-v0.1.0.pth --relative-path models/facerestore_models",
+    )
+    
+    .run_commands( #download Qwen-Rapid-AIO-NSFW
+        "comfy --skip-prompt model download --url https://huggingface.co/Phr00t/Qwen-Image-Edit-Rapid-AIO/resolve/main/v19/Qwen-Rapid-AIO-NSFW-v19.safetensors --relative-path models/checkpoints",
+    )
+    
+    .run_commands( # install QwenEditUtils
+        "comfy node install https://github.com/lrzjason/Comfyui-QwenEditUtils"
+    )
+
+    .run_commands( #download text_encoders, vae
+        "comfy --skip-prompt model download --url https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/text_encoders/qwen_2.5_vl_7b_fp8_scaled.safetensors --relative-path models/text_encoders",
+        "comfy --skip-prompt model download --url https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/vae/qwen_image_vae.safetensors --relative-path models/vae",
+    )
+
+    .run_commands( # install RES4LYF,Image-Saver
+        "comfy node install https://github.com/ClownsharkBatwing/RES4LYF",
+        "comfy node install https://github.com/farizrifqi/ComfyUI-Image-Saver",
+    )
+
+    .run_commands( # install ComfyUI-FreeMemory
+        "comfy node install https://github.com/ShmuelRonen/ComfyUI-FreeMemory",
+    )
+
+    .run_commands( #download Try_On_Qwen_Edit_Lora
+        "comfy --skip-prompt model download --url https://huggingface.co/FoxBaze/Try_On_Qwen_Edit_Lora_Alpha/resolve/main/Try_On_Qwen_Edit_Lora.safetensors --relative-path models/loras",
+    )
+
+    .run_commands( # install ControlNet
+        "comfy node install https://github.com/Fannovel16/comfyui_controlnet_aux",
+        "comfy --skip-prompt model download --url https://huggingface.co/yzd-v/DWPose/resolve/main/yolox_l.onnx --relative-path custom_nodes/comfyui_controlnet_aux/ckpts/yzd-v/DWPose",
+        "comfy --skip-prompt model download --url https://huggingface.co/yzd-v/DWPose/resolve/main/dw-ll_ucoco_384.onnx --relative-path custom_nodes/comfyui_controlnet_aux/ckpts/yzd-v/DWPose",
+    )
+
+    .run_commands( # create workflow folder
+        "mkdir -p /root/comfy/ComfyUI/user/default/workflows",
+        "mkdir -p /root/comfy/ComfyUI/user/default/temp_workflows",
+        "mkdir -p /usr/comfyuser",
+        "rm -rf /root/comfy/ComfyUI/user/default",
+        "rm -rf /root/comfy/ComfyUI/output/*",
+        "chmod -R 777 /usr/comfyuser",
+    )
+
+    .add_local_dir(  # Copy workflows to app
+        "./workflows",
+        remote_path="/root/comfy/ComfyUI/user/default/workflows",
+    )
+    
+    .add_local_dir(  # Copy workflows to app
+        "./workflows",
+        remote_path="/root/comfy/ComfyUI/user/default/workflows",
+    )
+    
+    .add_local_file("./config.json", remote_path="/root/comfy/ComfyUI/custom_nodes/comfyui-browser/config.json")
+    #.add_local_dir(  # Copy workflows to app
+    #    "./workflows",
+    #    remote_path="/root/user/default/workflows",
+    #)
 )
 
 app = modal.App(name="flux-comfyui", image=flux)
@@ -112,10 +178,20 @@ app = modal.App(name="flux-comfyui", image=flux)
     max_containers=1,
     scaledown_window=30,
     timeout=3200,
-    gpu="T4", # here you can change the gpu, i recommend either a10g or T4
-    volumes={"/root/comfy/ComfyUI/user/default": vol}, # Mount the volume to the user data folder
+    gpu="a10g", # here you can change the gpu, i recommend either a10g or T4
+    volumes={
+        "/root/comfy/ComfyUI/user/default/temp_workflows": vol,
+        "/root/comfy/ComfyUI/output" : output,
+        "/usr/comfyuser" : user,
+    }, # Mount the volume to the user data folder
 )
 @modal.concurrent(max_inputs=10)
 @modal.web_server(8000, startup_timeout=60)
 def ui():
-    subprocess.Popen("comfy launch -- --listen 0.0.0.0 --port 8000", shell=True)
+    with vol.batch_upload(force = True) as batch:
+        batch.put_directory("/root/comfy/ComfyUI/user/default/workflows", "/")
+    with user.batch_upload(force = True) as batch:
+        batch.put_directory("/root/comfy/ComfyUI/user/default/workflows", "/default/workflows")
+    output.hydrate()
+    output.reload()
+    subprocess.Popen("comfy launch -- --listen 0.0.0.0 --port 8000 --user-directory '/usr/comfyuser' --enable-cors-header '*'", shell=True)

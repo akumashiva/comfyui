@@ -1,8 +1,8 @@
 {
   "id": "29b0ec5e-3f65-42eb-b9c9-93a8990c895f",
   "revision": 0,
-  "last_node_id": 36,
-  "last_link_id": 80,
+  "last_node_id": 37,
+  "last_link_id": 82,
   "nodes": [
     {
       "id": 11,
@@ -427,35 +427,6 @@
       ]
     },
     {
-      "id": 35,
-      "type": "PreviewImage",
-      "pos": [
-        2205.013682938614,
-        95.42082067012805
-      ],
-      "size": [
-        140,
-        26
-      ],
-      "flags": {},
-      "order": 13,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 77
-        }
-      ],
-      "outputs": [],
-      "properties": {
-        "cnr_id": "comfy-core",
-        "ver": "0.10.0",
-        "Node name for S&R": "PreviewImage"
-      },
-      "widgets_values": []
-    },
-    {
       "id": 10,
       "type": "SUPIR_decode",
       "pos": [
@@ -487,7 +458,6 @@
           "type": "IMAGE",
           "slot_index": 0,
           "links": [
-            57,
             78
           ]
         }
@@ -514,7 +484,7 @@
         642.7651977539062
       ],
       "flags": {},
-      "order": 11,
+      "order": 13,
       "mode": 0,
       "inputs": [
         {
@@ -527,7 +497,7 @@
           "dir": 3,
           "name": "image_b",
           "type": "IMAGE",
-          "link": 57
+          "link": 82
         }
       ],
       "outputs": [],
@@ -595,52 +565,6 @@
       ]
     },
     {
-      "id": 36,
-      "type": "ColorMatch",
-      "pos": [
-        1847.0748552367622,
-        -43.80983431354532
-      ],
-      "size": [
-        270,
-        126
-      ],
-      "flags": {},
-      "order": 12,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "image_ref",
-          "type": "IMAGE",
-          "link": 79
-        },
-        {
-          "name": "image_target",
-          "type": "IMAGE",
-          "link": 78
-        }
-      ],
-      "outputs": [
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "links": [
-            77
-          ]
-        }
-      ],
-      "properties": {
-        "cnr_id": "comfyui-kjnodes",
-        "ver": "1.2.7",
-        "Node name for S&R": "ColorMatch"
-      },
-      "widgets_values": [
-        "mkl",
-        1,
-        true
-      ]
-    },
-    {
       "id": 32,
       "type": "LoadImage",
       "pos": [
@@ -677,6 +601,84 @@
       "widgets_values": [
         "bunny.jpg",
         "image"
+      ]
+    },
+    {
+      "id": 37,
+      "type": "SaveImage",
+      "pos": [
+        2224.122622066667,
+        -8.055304700365063
+      ],
+      "size": [
+        270,
+        58
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 81
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.10.0"
+      },
+      "widgets_values": [
+        "SupirUpscale"
+      ]
+    },
+    {
+      "id": 36,
+      "type": "ColorMatch",
+      "pos": [
+        1847.0748552367622,
+        -43.80983431354532
+      ],
+      "size": [
+        270,
+        126
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image_ref",
+          "type": "IMAGE",
+          "link": 79
+        },
+        {
+          "name": "image_target",
+          "type": "IMAGE",
+          "link": 78
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            81,
+            82
+          ]
+        }
+      ],
+      "properties": {
+        "aux_id": "kijai/ComfyUI-KJNodes",
+        "ver": "1.2.7",
+        "Node name for S&R": "ColorMatch",
+        "cnr_id": "comfyui-kjnodes"
+      },
+      "widgets_values": [
+        "mkl",
+        1,
+        true
       ]
     }
   ],
@@ -810,14 +812,6 @@
       "SUPIRVAE"
     ],
     [
-      57,
-      10,
-      0,
-      20,
-      1,
-      "IMAGE"
-    ],
-    [
       65,
       26,
       0,
@@ -830,14 +824,6 @@
       32,
       0,
       26,
-      0,
-      "IMAGE"
-    ],
-    [
-      77,
-      36,
-      0,
-      35,
       0,
       "IMAGE"
     ],
@@ -864,6 +850,22 @@
       20,
       0,
       "IMAGE"
+    ],
+    [
+      81,
+      36,
+      0,
+      37,
+      0,
+      "IMAGE"
+    ],
+    [
+      82,
+      36,
+      0,
+      20,
+      1,
+      "IMAGE"
     ]
   ],
   "groups": [],
@@ -872,8 +874,8 @@
     "ds": {
       "scale": 0.9229599817706606,
       "offset": [
-        -624.9200248225764,
-        532.1178957188648
+        592.9009232142522,
+        257.999835351145
       ]
     },
     "frontendVersion": "1.37.11",
