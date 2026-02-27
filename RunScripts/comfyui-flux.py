@@ -146,6 +146,22 @@ flux = (  # Download image layers to run FLUX_Q8.gguf model
         "comfy --skip-prompt model download --url https://huggingface.co/yzd-v/DWPose/resolve/main/yolox_l.onnx --relative-path custom_nodes/comfyui_controlnet_aux/ckpts/yzd-v/DWPose",
         "comfy --skip-prompt model download --url https://huggingface.co/yzd-v/DWPose/resolve/main/dw-ll_ucoco_384.onnx --relative-path custom_nodes/comfyui_controlnet_aux/ckpts/yzd-v/DWPose",
     )
+    
+    .run_commands( # install ControlNet
+        "comfy node install https://github.com/Fannovel16/comfyui_controlnet_aux",
+        "comfy --skip-prompt model download --url https://huggingface.co/yzd-v/DWPose/resolve/main/yolox_l.onnx --relative-path custom_nodes/comfyui_controlnet_aux/ckpts/yzd-v/DWPose",
+        "comfy --skip-prompt model download --url https://huggingface.co/yzd-v/DWPose/resolve/main/dw-ll_ucoco_384.onnx --relative-path custom_nodes/comfyui_controlnet_aux/ckpts/yzd-v/DWPose",
+    )
+    
+    .run_commands( #download Anything2Real lora
+        "comfy --skip-prompt model download --url https://huggingface.co/lrzjason/Anything2Real/resolve/main/anything2real_2601_A_final_patched.safetensors --relative-path models/loras",
+    )
+    
+    .run_commands( #download AnyPose lora
+        "comfy --skip-prompt model download --url https://huggingface.co/lilylilith/AnyPose/resolve/main/2511-AnyPose-base-000006250.safetensors --relative-path models/loras",
+        "comfy --skip-prompt model download --url https://huggingface.co/lilylilith/AnyPose/resolve/main/2511-AnyPose-helper-00006000.safetensors --relative-path models/loras",
+        "comfy --skip-prompt model download --url https://huggingface.co/DiffSynth-Studio/Qwen-Image-Edit-F2P/resolve/main/edit_0928_lora_step40000.safetensors --relative-path models/loras",
+    )
 
     .run_commands( # create workflow folder
         "mkdir -p /root/comfy/ComfyUI/user/default/workflows",

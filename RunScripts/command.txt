@@ -1,3 +1,6 @@
+Install Moda:
+pip install modal
+
 Run application:
 
 modal serve comfyui-flux.py
