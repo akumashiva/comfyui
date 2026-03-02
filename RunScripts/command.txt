@@ -1,6 +1,14 @@
-Install Moda:
+Install Modal:
 pip install modal
 
 Run application:
 
 modal serve comfyui-flux.py
+
+Run download: 
+
+modal run download.py
+
+Download file:
+
+modal volume get zip-outputs output.zip output-local.zip
